@@ -1,31 +1,31 @@
 import { createStore } from "redux";
 
-const plus = document.getElementById("plus");
-const minus = document.getElementById("minus");
-const number = document.querySelector("span");
+const ADD_TODO = "addToDo";
+const DELETE_TODO = "deleteToDo";
 
-const PLUS = "PLUS";
-const MINUS = "MINUS";
-
-const countModifier = (count = 0, action) => {
+const reducer = (state = [], action) => {
+  console.log(action);
   switch (action.type) {
-    case PLUS:
-      return count + 1;
-    case MINUS:
-      return count - 1;
+    case ADD_TODO:
+      return [];
+    case DELETE_TODO:
+      return [];
     default:
-      return count;
+      return state;
   }
 };
 
-const countStore = createStore(countModifier);
+const store = createStore(reducer);
 
-const onChange = () => (number.innerText = countStore.getState());
+const form = document.querySelector("form");
+const input = document.querySelector("input");
+const ul = document.querySelector("ul");
 
-countStore.subscribe(onChange);
+const onSubmit = (e) => {
+  e.preventDefault();
+  const toDo = input.value;
+  input.value = "";
+  store.dispatch({ type: ADD_TODO, text: toDo });
+};
 
-const handlePlus = () => countStore.dispatch({ type: PLUS });
-const handleMinus = () => countStore.dispatch({ type: MINUS });
-
-plus.addEventListener("click", handlePlus);
-minus.addEventListener("click", handleMinus);
+form.addEventListener("submit", onSubmit);
