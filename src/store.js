@@ -1,4 +1,3 @@
-import { Switch } from "react-router-dom";
 import { createStore } from "redux";
 
 const ADD = "ADD";
